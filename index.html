@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap");
+    </style>
+    <title>Calculator</title>
+  </head>
+  <body>
+    <div class="calculator">
+      <div class="result">
+        <div class="currentCalc">0</div>
+        <div class="historyCalc">History</div>
+      </div>
+      <div class="buttons">
+        <button onclick="clearCC()">AC</button>
+        <button onclick="appendNegative('-')">+/-</button>
+        <button onclick="squareRoot()">√x</button>
+        <button class="operations" onclick="appendOperation('+')">+</button>
+        <button onclick="appendNumber('7')">7</button>
+        <button onclick="appendNumber('8')">8</button>
+        <button onclick="appendNumber('9')">9</button>
+        <button class="operations" onclick="appendOperation('-')">-</button>
+        <button onclick="appendNumber('4')">4</button>
+        <button onclick="appendNumber('5')">5</button>
+        <button onclick="appendNumber('6')">6</button>
+        <button class="operations" onclick="appendOperation('×')">×</button>
+        <button onclick="appendNumber('1')">1</button>
+        <button onclick="appendNumber('2')">2</button>
+        <button onclick="appendNumber('3')">3</button>
+        <button class="operations" onclick="appendOperation('÷')">÷</button>
+        <button onclick="appendNumber('0')">0</button>
+        <button onclick="appendDecimal()">.</button>
+        <button>Ans</button>
+        <button class="equal" onclick="solve()">=</button>
+      </div>
+    </div>
+    <script src="main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjs@10.6.1/lib/browser/math.min.js"></script>
+  </body>
+</html>
