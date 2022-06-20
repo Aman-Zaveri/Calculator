@@ -87,6 +87,7 @@ button {
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   background-color: var(--calcColor);
+  outline: none;
 }
 
 .equal {
