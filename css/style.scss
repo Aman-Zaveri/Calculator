@@ -17,7 +17,7 @@ body {
   border-radius: 20px;
   overflow: hidden;
   max-width: 500px;
-  box-shadow:  0px 0px 10px #a5a5a5;
+  box-shadow: 0px 0px 10px #a5a5a5;
   background-color: var(--calcColor);
 }
 
@@ -55,7 +55,7 @@ button {
   font-family: "Poppins", sans-serif;
   color: white;
   border-radius: 38px;
-  box-shadow:  0px 0px 10px #686868;
+  box-shadow: 0px 0px 10px #686868;
   font-size: 1.2em;
   border-style: none;
   cursor: pointer;
@@ -63,7 +63,6 @@ button {
   transition: all 0.2s ease-in-out;
   background-color: var(--calcColor);
   outline: none;
-
 }
 
 .equal {
@@ -86,4 +85,3 @@ button:hover {
 button:active {
   transform: scale(0.9);
 }
-

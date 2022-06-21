@@ -5,6 +5,7 @@ const historyCalc = document.querySelector(".historyCalc");
 let currentNumber = [];
 operations = ["+", "-", "×", "÷"];
 let keysPressed = {};
+let lastKeyPressed = [];
 let equalSignPressed;
 
 document.addEventListener("keydown", (event) => {
@@ -37,10 +38,6 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
-function incorrectButton(button) {
-  document.querySelector(button).style.backgroundColor = "#ef4444";
-}
-
 function replaceOperations(replacementValue) {
   mutliplierRemover = replacementValue.replace(/×/g, "*");
   replacedCalc = mutliplierRemover.replace(/÷/g, "/");
@@ -48,7 +45,7 @@ function replaceOperations(replacementValue) {
 }
 
 function appendNumber(number) {
-  if (currentCalc.innerHTML == "0" || equalSignPressed == true) {
+  if (currentCalc.innerHTML == "0" || equalSignPressed == true || currentCalc.innerHTML == 'Error') {
     currentCalc.innerHTML = "";
     equalSignPressed = false;
     console.log("cleared");
@@ -78,6 +75,7 @@ function clearCC() {
 }
 
 function appendNegative(negative) {
+  lastKeyPressed.push(negative);
   if (
     isNaN(currentCalc.innerHTML.charAt(currentCalc.innerHTML.length - 1)) &&
     currentCalc.innerHTML.charAt(currentCalc.innerHTML.length - 1) != negative
@@ -87,32 +85,36 @@ function appendNegative(negative) {
 }
 
 function squareRoot() {
-  historyCalc.innerHTML = currentCalc.innerHTML;
-  currentCalc.innerHTML = Math.sqrt(
-    math.evaluate(replaceOperations(currentCalc.innerHTML))
-  );
-  equalSignPressed = false;
+  try {
+    lastKeyPressed.push("√");
+    equalSignPressed = false;
+    historyCalc.innerHTML = currentCalc.innerHTML;
+    currentCalc.innerHTML = Math.sqrt(
+      math.evaluate(replaceOperations(currentCalc.innerHTML))
+    );
+  } catch (err) {
+    currentCalc.innerHTML = "Error";
+  }
 }
 
 function appendDecimal() {
+  lastKeyPressed.push(".");
   if (!currentNumber.includes(".")) {
     currentCalc.innerHTML += ".";
     currentNumber.push(".");
     equalSignPressed = false;
   }
-  else {
-    incorrectButton('#decimal')
-  }
 }
 
 function previousAnswer() {
+  lastKeyPressed.push("Ans");
   if (
     isNaN(currentCalc.innerHTML.charAt(currentCalc.innerHTML.length - 1)) &&
     historyCalc.innerHTML != "History"
   ) {
     currentCalc.innerHTML += math.evaluate(historyCalc.innerHTML);
+    equalSignPressed = false;
   }
-  equalSignPressed = false;
 }
 
 function solve() {
@@ -123,6 +125,7 @@ function solve() {
     );
     equalSignPressed = true;
   } catch (err) {
-    console.log("Error");
+    currentCalc.innerHTML = "Error";
   }
+  lastKeyPressed.push("=");
 }
