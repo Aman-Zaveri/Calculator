@@ -25,6 +25,8 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   border-radius: 20px;
   overflow: hidden;
   max-width: 500px;

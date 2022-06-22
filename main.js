@@ -5,7 +5,6 @@ const historyCalc = document.querySelector(".historyCalc");
 let currentNumber = [];
 operations = ["+", "-", "×", "÷"];
 let keysPressed = {};
-let lastKeyPressed = [];
 let equalSignPressed;
 
 document.addEventListener("keydown", (event) => {
@@ -29,8 +28,6 @@ window.addEventListener("keydown", (event) => {
     squareRoot();
   } else if (event.key == ".") {
     appendDecimal();
-  } else if (event.key == "Enter") {
-    solve();
   } else if (keysPressed["Shift"] == true && keysPressed["Backspace"]) {
     currentCalc.innerHTML = "0";
   } else if (event.key == "Backspace") {
@@ -45,17 +42,22 @@ function replaceOperations(replacementValue) {
 }
 
 function appendNumber(number) {
-  if (currentCalc.innerHTML == "0" || equalSignPressed == true || currentCalc.innerHTML == 'Error') {
+  if (
+    currentCalc.innerHTML == "0" ||
+    equalSignPressed == true ||
+    currentCalc.innerHTML == "Error"
+  ) {
     currentCalc.innerHTML = "";
     equalSignPressed = false;
-    console.log("cleared");
   }
   currentCalc.innerHTML += number;
   currentNumber.push(number);
 }
 
 function appendOperation(operation) {
-  if (
+  if (currentCalc.innerHTML == "Error") {
+    //pass
+  } else if (
     !isNaN(currentCalc.innerHTML.charAt(currentCalc.innerHTML.length - 1)) ||
     currentCalc.innerHTML.charAt(currentCalc.innerHTML.length - 1) == "s"
   ) {
@@ -75,7 +77,6 @@ function clearCC() {
 }
 
 function appendNegative(negative) {
-  lastKeyPressed.push(negative);
   if (
     isNaN(currentCalc.innerHTML.charAt(currentCalc.innerHTML.length - 1)) &&
     currentCalc.innerHTML.charAt(currentCalc.innerHTML.length - 1) != negative
@@ -86,7 +87,6 @@ function appendNegative(negative) {
 
 function squareRoot() {
   try {
-    lastKeyPressed.push("√");
     equalSignPressed = false;
     historyCalc.innerHTML = currentCalc.innerHTML;
     currentCalc.innerHTML = Math.sqrt(
@@ -98,7 +98,6 @@ function squareRoot() {
 }
 
 function appendDecimal() {
-  lastKeyPressed.push(".");
   if (!currentNumber.includes(".")) {
     currentCalc.innerHTML += ".";
     currentNumber.push(".");
@@ -107,7 +106,6 @@ function appendDecimal() {
 }
 
 function previousAnswer() {
-  lastKeyPressed.push("Ans");
   if (
     isNaN(currentCalc.innerHTML.charAt(currentCalc.innerHTML.length - 1)) &&
     historyCalc.innerHTML != "History"
@@ -123,9 +121,8 @@ function solve() {
     currentCalc.innerHTML = math.evaluate(
       replaceOperations(currentCalc.innerHTML)
     );
-    equalSignPressed = true;
   } catch (err) {
     currentCalc.innerHTML = "Error";
   }
-  lastKeyPressed.push("=");
+  equalSignPressed = true;
 }
